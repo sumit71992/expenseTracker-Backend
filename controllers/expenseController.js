@@ -2,7 +2,7 @@ const Expense = require("../models/expenseModel");
 const User = require("../models/userModel");
 const sequelize = require("../util/database");
 const UserServices = require("../services/userServices");
-const S3Services = require('../services/s3Services');
+// const S3Services = require('../services/s3Services');
 
 exports.addExpense = async (req, res, next) => {
   const t = await sequelize.transaction();
@@ -116,15 +116,15 @@ exports.getLeaderboard = async (req, res) => {
   }
 };
 
-exports.downloadExpense = async (req, res) => {
-  try {
-    const expenses = await UserServices.getExpenses(req);
-    const stringifiedExpenses = JSON.stringify(expenses);
-    const filename = `Expense${req.user.id}/${Date.now()}.txt`;
-    const fileURL = await S3Services.uploadToS3(stringifiedExpenses, filename);
-    return res.status(200).json({ fileURL, message: "Uploaded successfully" })
-  } catch (err) {
-    console.log(err);
-  }
-};
+// exports.downloadExpense = async (req, res) => {
+//   try {
+//     const expenses = await UserServices.getExpenses(req);
+//     const stringifiedExpenses = JSON.stringify(expenses);
+//     const filename = `Expense${req.user.id}/${Date.now()}.txt`;
+//     const fileURL = await S3Services.uploadToS3(stringifiedExpenses, filename);
+//     return res.status(200).json({ fileURL, message: "Uploaded successfully" })
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
