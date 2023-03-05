@@ -370,7 +370,6 @@ leaderboard.addEventListener("click", async (e) => {
       td7.className = "text-success";
       tr2.appendChild(td7);
       tbodyNotes.appendChild(tr2);
-      const Razorpay = import("razorpay");
       div.appendChild(notesTable);
 
       const token = localStorage.getItem("token");
