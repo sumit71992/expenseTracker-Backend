@@ -1,4 +1,4 @@
-// const Razorpay = import("razorpay");
+const Razorpay = import("razorpay");
 const pagination = document.getElementById('pagination');
 let amount = document.querySelector("#expense_input");
 let desc = document.getElementById("description_input");
@@ -370,9 +370,7 @@ leaderboard.addEventListener("click", async (e) => {
       td7.className = "text-success";
       tr2.appendChild(td7);
       tbodyNotes.appendChild(tr2);
-
-      notesTable.appendChild(theadNotes);
-      notesTable.appendChild(tbodyNotes);
+      const Razorpay = import("razorpay");
       div.appendChild(notesTable);
 
       const token = localStorage.getItem("token");

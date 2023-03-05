@@ -172,7 +172,6 @@ const resetPassword = async (req, res) => {
       </html>`);
      
       res.end();
-      // return res.json({ message: "Success" });
     } else {
       return res.json({ message: "Link Expired" });
     }
