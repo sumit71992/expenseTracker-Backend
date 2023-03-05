@@ -1,6 +1,6 @@
 const path = require("path");
 const fs = require("fs");
-const https = require("https");
+// const https = require("https");
 const express = require("express");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
@@ -37,6 +37,9 @@ app.use("/expense", mainRoutes);
 app.use("/user", userRoutes);
 app.use("/order", orderRoutes);
 app.use("/password", passwordRoutes);
+app.use((req,res)=>{
+  res.sendFile(path.join(__dirname, `views/${req.url}`));
+});
 
 const accessLogStream = fs.createWriteStream(
   path.join(__dirname, "access.log"),
