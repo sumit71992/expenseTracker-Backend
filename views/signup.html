@@ -55,7 +55,7 @@
                 email: email.value,
                 password: password.value,
             };
-            const user = await axios.post("http://65.1.109.0:3000/user/signup", obj);
+            const user = await axios.post("http://13.235.132.218:3000/user/signup", obj);
             if (user.data.message) {
                 message.appendChild(document.createTextNode(user.data.message));
             } else {
