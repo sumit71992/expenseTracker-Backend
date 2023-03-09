@@ -4,6 +4,7 @@ const userAuthentication = require('../middleware/auth');
 const router = express.Router();
 
 // Expense => GET
+router.get("/expenses",userAuthentication.authenticate, expenseController.getAllExpenses)
 router.get('/leaderboard', userAuthentication.authenticate,expenseController.getLeaderboard);
 router.get('/:id', expenseController.getEditExpense);
 

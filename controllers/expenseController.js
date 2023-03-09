@@ -1,9 +1,9 @@
-const path = require('path');
+const path = require("path");
 const Expense = require("../models/expenseModel");
 const User = require("../models/userModel");
 const sequelize = require("../util/database");
 const UserServices = require("../services/userServices");
-const S3Services = require('../services/s3Services');
+const S3Services = require("../services/s3Services");
 
 exports.addExpense = async (req, res, next) => {
   const t = await sequelize.transaction();
@@ -35,9 +35,9 @@ exports.addExpense = async (req, res, next) => {
 exports.getAllExpenses = async (req, res, next) => {
   try {
     const str = req.query.page;
-    const page = str?Number(str.split("=")[0]):1;
-    const ltd = str?Number(str.split("=")[1]):10;
-
+    const page = str ? Number(str.split("=")[0]) : 1;
+    const ltd = str ? Number(str.split("=")[1]) : 10;
+    console.log("<<<<<<<<<<<<<<<<<<<<<<<", req.user);
     let count = await Expense.count({ where: { userId: req.user.id } });
     const isPremium = req.user.isPremium;
     const expenses = await Expense.findAll({
@@ -53,7 +53,7 @@ exports.getAllExpenses = async (req, res, next) => {
       hasPreviousPage: page > 1,
       previousPage: page - 1,
       lastPage: Math.ceil(count / ltd),
-      currentPage: page
+      currentPage: page,
     });
   } catch (err) {
     console.log(err);
@@ -64,7 +64,7 @@ exports.deleteExpense = async (req, res, next) => {
   const t = await sequelize.transaction();
   try {
     const id = req.params.id;
-    const expense = await Expense.findByPk(id, {transaction: t});
+    const expense = await Expense.findByPk(id, { transaction: t });
     const usr = await User.findByPk(req.user.id, { transaction: t });
     usr.totalExpenses -= expense.amount;
     await t.commit();
@@ -74,7 +74,7 @@ exports.deleteExpense = async (req, res, next) => {
   } catch (err) {
     await t.rollback();
     console.log(err);
-    return res.status(500).json({err, message:"Something went wrong"});
+    return res.status(500).json({ err, message: "Something went wrong" });
   }
 };
 exports.getEditExpense = async (req, res, next) => {
@@ -123,9 +123,8 @@ exports.downloadExpense = async (req, res) => {
     const stringifiedExpenses = JSON.stringify(expenses);
     const filename = `Expense${req.user.id}/${Date.now()}.txt`;
     const fileURL = await S3Services.uploadToS3(stringifiedExpenses, filename);
-    return res.status(200).json({ fileURL, message: "Uploaded successfully" })
+    return res.status(200).json({ fileURL, message: "Uploaded successfully" });
   } catch (err) {
     console.log(err);
   }
 };
-

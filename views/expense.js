@@ -36,7 +36,7 @@ window.addEventListener("DOMContentLoaded", async () => {
     const ltd = localStorage.getItem("row") || 10;
     if (token) {
       const response = await axios.get(
-        `http://13.235.132.218:3000/expense?page=${page}=${ltd}`,
+        `http://13.235.132.218:3000/expense/expenses?page=${page}=${ltd}`,
         {
           headers: { Authorization: token },
         }
