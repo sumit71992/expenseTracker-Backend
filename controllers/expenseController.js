@@ -1,4 +1,3 @@
-const path = require("path");
 const Expense = require("../models/expenseModel");
 const User = require("../models/userModel");
 const sequelize = require("../util/database");
@@ -37,7 +36,6 @@ exports.getAllExpenses = async (req, res, next) => {
     const str = req.query.page;
     const page = str ? Number(str.split("=")[0]) : 1;
     const ltd = str ? Number(str.split("=")[1]) : 10;
-    console.log("<<<<<<<<<<<<<<<<<<<<<<<", req.user);
     let count = await Expense.count({ where: { userId: req.user.id } });
     const isPremium = req.user.isPremium;
     const expenses = await Expense.findAll({
@@ -77,7 +75,7 @@ exports.deleteExpense = async (req, res, next) => {
     return res.status(500).json({ err, message: "Something went wrong" });
   }
 };
-exports.getEditExpense = async (req, res, next) => {
+exports.getEditExpense = async (req, res) => {
   try {
     const id = req.params.id;
     const expense = await Expense.findByPk(id);
@@ -86,7 +84,7 @@ exports.getEditExpense = async (req, res, next) => {
     console.log(err);
   }
 };
-exports.updateExpense = async (req, res, next) => {
+exports.updateExpense = async (req, res) => {
   const t = await sequelize.transaction();
   try {
     const id = req.params.id;

@@ -17,7 +17,7 @@ btn.addEventListener("click", async (e) => {
     };
     if (!desc.title) {
       const expense = await axios.post(
-        "http://3.109.42.131:3000/expense/addexpense",
+        "http://3.109.42.131:3000:3000/expense/addexpense",
         obj,
         {
           headers: { Authorization: token },
@@ -83,7 +83,7 @@ const showPagination = async (response) => {
 };
 const getExpense = async (page) => {
   const ltd = localStorage.getItem("row");
-  const expense = await axios.get(`http://3.109.42.131/expense?page=${page}=${ltd}`, { headers: { Authorization: token }, });
+  const expense = await axios.get(`http://3.109.42.131:3000/expense?page=${page}=${ltd}`, { headers: { Authorization: token }, });
   await showPagination(expense);
   await fetchExpenses(expense);
 };
@@ -146,7 +146,7 @@ tbody.addEventListener("click", async (e) => {
   try {
     if (e.target.classList.contains("del")) {
       const deletedExpense = await axios.delete(
-        "http://3.109.42.131:3000/expense/" + e.target.id,
+        "http://3.109.42.131:3000:3000/expense/" + e.target.id,
         {
           headers: { Authorization: token },
         }
@@ -163,7 +163,7 @@ tbody.addEventListener("click", async (e) => {
 const premium = document.querySelector(".nav");
 premium.addEventListener("click", async (e) => {
   if (e.target.classList.contains("buy_premium")) {
-    const response = await axios.get("http://3.109.42.131:3000/order/buypremium", {
+    const response = await axios.get("http://3.109.42.131:3000:3000/order/buypremium", {
       headers: { Authorization: token },
     });
     console.log("response", response);
@@ -172,7 +172,7 @@ premium.addEventListener("click", async (e) => {
       order_id: response.data.order.id,
       handler: async function (response) {
         await axios.post(
-          "http://3.109.42.131:3000/order/updatestatus",
+          "http://3.109.42.131:3000:3000/order/updatestatus",
           {
             order_id: options.order_id,
             payment_id: response.razorpay_payment_id,
@@ -190,7 +190,7 @@ premium.addEventListener("click", async (e) => {
     rzp1.on("payment.failed", function (response) {
       console.log(response.error.reason, response.error.metadata.order_id);
       axios.post(
-        "http://3.109.42.131:3000/order/updatestatus",
+        "http://3.109.42.131:3000:3000/order/updatestatus",
         {
           order_id: response.error.metadata.order_id,
           payment_id: response.error.metadata.payment_id,
@@ -209,7 +209,7 @@ leaderboard.addEventListener("click", (e) => {
   e.preventDefault();
   if (e.target.classList.contains("leaderboard")) {
     axios
-      .get("http://3.109.42.131:3000/expense/leaderboard", {
+      .get("http://3.109.42.131:3000:3000/expense/leaderboard", {
         headers: { Authorization: token },
       })
       .then((res) => {
@@ -373,7 +373,7 @@ leaderboard.addEventListener("click", async (e) => {
       div.appendChild(notesTable);
 
       const token = localStorage.getItem("token");
-      const data = await axios.get("http://3.109.42.131:3000/user/reports", {
+      const data = await axios.get("http://3.109.42.131:3000:3000/user/reports", {
         headers: { Authorization: token },
       });
       const report = data.data.report;
