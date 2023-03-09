@@ -59,7 +59,7 @@
                 message.className = 'text-success text-center';
                 message.appendChild(document.createTextNode(msg));
                 await localStorage.setItem('token', user.data.token)
-                setTimeout(() => { window.location.replace("./expense.html") }, 2000);
+                setTimeout(() => { window.location.replace("./index.html") }, 2000);
             } catch (err) {
                 let msg = err.response.data.message;
                 message.appendChild(document.createTextNode(msg));
