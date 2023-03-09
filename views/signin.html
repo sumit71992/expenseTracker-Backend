@@ -54,7 +54,7 @@
                     email: email.value,
                     password: password.value
                 };
-                const user = await axios.post('http://13.235.132.218:3000/user/signin', obj);
+                const user = await axios.post('http://3.109.42.131:3000/user/signin', obj);
                 let msg = user.data.message;
                 message.className = 'text-success text-center';
                 message.appendChild(document.createTextNode(msg));
