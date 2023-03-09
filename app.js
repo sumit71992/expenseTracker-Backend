@@ -34,10 +34,12 @@ app.use(bodyParser.json({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/expense", mainRoutes);
+app.use("/", mainRoutes);
 app.use("/user", userRoutes);
 app.use("/order", orderRoutes);
 app.use("/password", passwordRoutes);
 app.use((req,res)=>{
+  console.log("req.url",req.url)
   res.sendFile(path.join(__dirname, `views/${req.url}`));
 });
 
