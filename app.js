@@ -38,7 +38,7 @@ app.use("/user", userRoutes);
 app.use("/order", orderRoutes);
 app.use("/password", passwordRoutes);
 app.use((req,res)=>{
-  res.sendFile(path.join(__dirname, `views/${req.url || expense.html}`));
+  res.sendFile(path.join(__dirname, `views/${req.url}`));
 });
 
 const accessLogStream = fs.createWriteStream(
