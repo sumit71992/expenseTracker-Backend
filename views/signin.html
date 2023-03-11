@@ -11,11 +11,24 @@
         integrity="sha512-NCiXRSV460cHD9ClGDrTbTaw0muWUBf/zB/yLzJavRsPNUl9ODkUVmUHsZtKu17XknhsGlmyVoJxLg/ZQQEeGA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>SignIn</title>
+    <style>
+        .width{
+            width: 30%;
+        }
+        @media only screen and (max-width: 768px){
+            .width{
+                width: 75%;
+            }
+            h3{
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="container-fluid p-5">
-        <div class="container w-25 border border-secondary">
+        <div class="container width border border-secondary">
             <h6 class="text-center message text-danger"></h6>
             <h3 class="text-center text-secondary mt-3">Signin to ExpenseTracker App</h3>
             <form class="form">
